@@ -45,20 +45,3 @@ def plot_loss_curves(results: Dict[str, List[float]]):
     plt.title('Accuracy')
     plt.xlabel('Epochs')
     plt.legend()
-
-
-def plot_transformed_images(image_paths, transform, n=3, seed=42):
-    random.seed(seed)
-    random_image_paths = random.sample(image_paths, k=n)
-    for image_path in random_image_paths:
-        with Image.open(image_path) as f:
-            fig, ax = plt.subplots(1, 2)
-            ax[0].imshow(f)
-            ax[0].set_title(f"Original \nSize: {f.size}")
-            ax[0].axis("off")
-            transformed_image = transform(f).permute(1, 2, 0)
-            ax[1].imshow(transformed_image)
-            ax[1].set_title(f"Transformed \nSize: {transformed_image.shape}")
-            ax[1].axis("off")
-
-            fig.suptitle(f"Class: {image_path.parent.stem}", fontsize=16)
